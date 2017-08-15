@@ -30,7 +30,6 @@ namespace Turn_Off_PC
             Continue.IsEnabled = false;
             Reset.IsEnabled = false;
             Notification();
-            win2.Show();
         }
 
         private void Notification()
