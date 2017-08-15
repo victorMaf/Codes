@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Drawing;
 using System.Windows.Forms;
+using static Turn_Off_PC.Notification;
 
 namespace Turn_Off_PC
 {
@@ -14,17 +15,14 @@ namespace Turn_Off_PC
         DispatcherTimer timer;
         DispatcherTimer timer2;
         DispatcherTimer timer3;
-        TimeSpan _time;
 
+        public TimeSpan _time;
         public int VariableTime;
         public int temptime;
         public int Vt;
 
         NotifyIcon appIcon = new NotifyIcon();
-
-        window2 win2 = new window2();
-        win2.Show();
-
+        Notification win2 = new Turn_Off_PC.Notification();
 
         public MainWindow()
         {
@@ -34,8 +32,7 @@ namespace Turn_Off_PC
             Continue.IsEnabled = false;
             Reset.IsEnabled = false;
             Notification();
-            
-
+            win2.Show();
         }
 
         private void Notification()
@@ -47,14 +44,15 @@ namespace Turn_Off_PC
         private void startclock()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += tickevent1;
             timer.Start();
         }
 
         private void tickevent1(object sender, EventArgs e)
         {
-            Time_Now.Text = DateTime.Now.ToString("HH:mm:ss  dd.MM.yyyy"); 
+            Time_Now.Text = DateTime.Now.ToString("HH:mm:ss  dd.MM.yyyy");
+            Noti_Time();
         }
 
         private string Convert_to_time(int time)
@@ -87,15 +85,13 @@ namespace Turn_Off_PC
                 RemaingTime.Text = Convert_to_time(VariableTime);
 
                 if (_time == TimeSpan.FromSeconds(300))
-                {
-                    timer2.Stop();
-                    
+                {                 
+                    win2.Show();
                 }
 
                 if (_time == TimeSpan.Zero)
                 {
                     timer2.Stop();
-                    //System.Windows.MessageBox.Show("Shutdown.");
                     System.Diagnostics.Process.Start("shutdown", "/s /f /t 060 /c " + (char)34 + "YOUR COMPUTER WILL BE TURNED OFF IN 1 MINUTE" + (char)34);
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
@@ -106,7 +102,12 @@ namespace Turn_Off_PC
             
         }
 
-        private void countup()
+        public  void remaining()
+        {
+            RemaingTime.Text = Convert_to_time(Vt);
+        }
+
+        public void CountUp()
         {
             timer3 = new DispatcherTimer();
             timer3.Tick += new EventHandler(timer3_Tick);
@@ -114,60 +115,30 @@ namespace Turn_Off_PC
             timer3.Start();
         }
 
-        private void timer3_Tick(object sender, EventArgs e)
+        public void timer3_Tick(object sender, EventArgs e)
         {
             if (Vt < VariableTime)
             {
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                Vt++;
-                RemaingTime.Text = Convert_to_time(Vt);
-                
-               
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
+                Vt++; remaining();
             }
             if (Vt == VariableTime)
                 timer3.Stop();
@@ -217,13 +188,13 @@ namespace Turn_Off_PC
         private void OneHour_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 3600;
-            countup();
+            CountUp();
         }
 
         private void TwoHour_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 7200;
-            countup();
+            CountUp();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
@@ -245,7 +216,7 @@ namespace Turn_Off_PC
             ThirtyMin.IsEnabled = true;
             Reset.IsEnabled = false;
             ResetTime.IsEnabled = true;
-
+            appIcon.ShowBalloonTip(500, "The countdown has stoped", " ", ToolTipIcon.Info);
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -268,31 +239,31 @@ namespace Turn_Off_PC
         private void ThreeHours_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 10800;
-            countup();
+            CountUp();
         }
 
         private void FourHours_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 14400;
-            countup();
+            CountUp();
         }
 
         private void TenMin_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 600;
-            countup();
+            CountUp();
         }
 
         private void TwentyMin_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 1200;
-            countup();
+            CountUp();
         }
 
         private void ThirtyMin_Click(object sender, RoutedEventArgs e)
         {
             VariableTime += 1800;
-            countup();
+            CountUp();
         }
 
         private void ResetTime_Click(object sender, RoutedEventArgs e)
@@ -302,5 +273,37 @@ namespace Turn_Off_PC
             Vt = 0;
             RemaingTime.Text = Convert_to_time(Vt);
         }
+
+        private void Noti_Time()
+        {
+            switch (Noti_temptime.noti_temp_time)
+            {
+                case 5:
+                    VariableTime += 20;
+                    CountUp();
+                    Noti_temptime.noti_temp_time = 0;
+                    break;
+
+                case 10:
+                    VariableTime += 600;
+                    CountUp();
+                    Noti_temptime.noti_temp_time = 0;
+                    break;
+
+                default:
+                    break;
+            }
+            
+        }
+
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            VariableTime += 310;
+            CountUp();
+        }
+
+
+        
     }
 }

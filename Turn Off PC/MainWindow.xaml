@@ -13,7 +13,6 @@
     <Window.Resources>
 
         <BitmapImage x:Key="logo" UriSource="/logo.png" />
-        <BitmapImage x:Key="icon" UriSource="/icon.ico" />
 
     </Window.Resources>
     
@@ -53,7 +52,7 @@
                 <ColumnDefinition Width="184*"/>
                 <ColumnDefinition Width="103*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"  Foreground="Red"  x:Name="RemaingTime" TextAlignment="Center" FontSize="30" IsEnabled="False" Text="Select Time" Margin="35,-20,90,10" RenderTransformOrigin="0.5,2.441" Grid.ColumnSpan="3"/>
+            <TextBlock Grid.Column="0"  Foreground="Red"  x:Name="RemaingTime" TextAlignment="Center" FontSize="30" IsEnabled="False" Text="Select time" Margin="35,-20,90,10" RenderTransformOrigin="0.5,2.441" Grid.ColumnSpan="3"/>
             <Button Grid.Column="2" x:Name="Start" Content="Start" Click="Start_Click" Margin="10,0,10,10" BorderBrush="Black" Background="#FF99DC8A" />
         </Grid>
 
@@ -86,6 +85,7 @@
             <Button Grid.Column="2" x:Name="FourHours" Content="4 Hours"  Margin="20,0,20,10" Click="FourHours_Click" BorderBrush="Black" Background="#FFC8DC6C" />
             <Button Grid.Column="3" x:Name="ResetTime" Content="Reset Time"  Background="#FFDA6A6A" Click="ResetTime_Click" BorderBrush="Black" Margin="0,0,10,10"/>
             <Button Grid.Column="4" x:Name="Reset" Content="Reset Counter" Click="Reset_Click" Margin="0,0,10,10"  BorderBrush="Black" Background="#FFDA6A6A"/>
+            <Button x:Name="button" Grid.ColumnSpan="2" Content="" HorizontalAlignment="Left" Margin="81,5,0,0" VerticalAlignment="Top" Width="18" Click="button_Click"/>
         </Grid>
 
         <TextBlock Grid.Row="0" x:Name="Time_Now"  TextAlignment="Center" FontSize="30" Margin="34,10,90,27" Text="" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
