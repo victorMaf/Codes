@@ -7,9 +7,7 @@ using static Turn_Off_PC.Notification;
 
 namespace Turn_Off_PC
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
         DispatcherTimer timer;
@@ -66,17 +64,6 @@ namespace Turn_Off_PC
             return elapsed;
         }
 
-        private string Convert_to_time2(int time)
-        {
-            TimeSpan t = TimeSpan.FromSeconds(time);
-            string elapsed = string.Format("{0:D1} : {1:D2} : {2:D2} : {3:D2}",
-                t.Days,
-                t.Hours,
-                t.Minutes,
-                t.Seconds);
-            return elapsed;
-        }
-
         private void countdown()
         {
             _time = TimeSpan.FromSeconds(VariableTime);
@@ -99,7 +86,6 @@ namespace Turn_Off_PC
                 temptime = (int)_time.Seconds;
             },
             System.Windows.Application.Current.Dispatcher);
-            
         }
 
         public  void remaining()
@@ -161,7 +147,6 @@ namespace Turn_Off_PC
 
             switch (VariableTime)
             {
-
                 case 0:
                     Start.IsEnabled = true;
                     Stop.IsEnabled = false;
@@ -181,7 +166,6 @@ namespace Turn_Off_PC
                     countdown();
                     appIcon.ShowBalloonTip(500, "The countdown has started"," ", ToolTipIcon.Info);
                     break;
-
             }
         }
 
@@ -279,7 +263,7 @@ namespace Turn_Off_PC
             switch (Noti_temptime.noti_temp_time)
             {
                 case 5:
-                    VariableTime += 20;
+                    VariableTime += 300;
                     CountUp();
                     Noti_temptime.noti_temp_time = 0;
                     break;
@@ -293,16 +277,7 @@ namespace Turn_Off_PC
                 default:
                     break;
             }
-            
         }
-
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            VariableTime += 310;
-            CountUp();
-        }
-
 
         
     }

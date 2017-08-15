@@ -24,7 +24,7 @@ namespace Turn_Off_PC
         {
             public static int noti_temp_time { get; set; }
 
-        };
+        }
 
         public Notification()
         {
