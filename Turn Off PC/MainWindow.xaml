@@ -9,6 +9,14 @@
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
+
+    <Window.Resources>
+
+        <BitmapImage x:Key="logo" UriSource="/logo.png" />
+        <BitmapImage x:Key="icon" UriSource="/icon.ico" />
+
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
@@ -29,7 +37,7 @@
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Row="0" Grid.Column="1" Source="C:\Users\Taz\Documents\Visual Studio 2015\Projects\Turn Off PC\Turn Off PC\Resources\1383388_657711917586612_2077176996_n.png" Margin="10,10,10,0"/>
+            <Image Grid.Row="0" Grid.Column="1" Source="{StaticResource ResourceKey=logo}" Margin="0,17,20,-7"/>
         </Grid>
 
         <Grid Grid.ColumnSpan="3" Margin="0,0,0,1" Grid.Row="1">
@@ -45,7 +53,7 @@
                 <ColumnDefinition Width="184*"/>
                 <ColumnDefinition Width="103*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"  Foreground="Red"  x:Name="TimpRamas" TextAlignment="Center" FontSize="30" IsEnabled="False" Text="Select Time" Margin="35,-20,90,10" RenderTransformOrigin="0.5,2.441" Grid.ColumnSpan="3"/>
+            <TextBlock Grid.Column="0"  Foreground="Red"  x:Name="RemaingTime" TextAlignment="Center" FontSize="30" IsEnabled="False" Text="Select Time" Margin="35,-20,90,10" RenderTransformOrigin="0.5,2.441" Grid.ColumnSpan="3"/>
             <Button Grid.Column="2" x:Name="Start" Content="Start" Click="Start_Click" Margin="10,0,10,10" BorderBrush="Black" Background="#FF99DC8A" />
         </Grid>
 
@@ -80,7 +88,7 @@
             <Button Grid.Column="4" x:Name="Reset" Content="Reset Counter" Click="Reset_Click" Margin="0,0,10,10"  BorderBrush="Black" Background="#FFDA6A6A"/>
         </Grid>
 
-        <TextBlock Grid.Row="0" x:Name="OraActula"  TextAlignment="Center" FontSize="30" Margin="34,10,90,27" Text="hh:mm:ss" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <TextBlock Grid.Row="0" x:Name="Time_Now"  TextAlignment="Center" FontSize="30" Margin="34,10,90,27" Text="" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
 
 

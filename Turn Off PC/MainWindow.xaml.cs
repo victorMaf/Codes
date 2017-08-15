@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Turn_Off_PC
 {
@@ -25,11 +14,17 @@ namespace Turn_Off_PC
         DispatcherTimer timer;
         DispatcherTimer timer2;
         DispatcherTimer timer3;
-        public int VariableTime;
         TimeSpan _time;
+
+        public int VariableTime;
         public int temptime;
         public int Vt;
-        
+
+        NotifyIcon appIcon = new NotifyIcon();
+
+        window2 win2 = new window2();
+        win2.Show();
+
 
         public MainWindow()
         {
@@ -38,8 +33,15 @@ namespace Turn_Off_PC
             Stop.IsEnabled = false;
             Continue.IsEnabled = false;
             Reset.IsEnabled = false;
+            Notification();
             
 
+        }
+
+        private void Notification()
+        {
+            appIcon.Icon = new Icon("C:/Users/Taz/Documents/Visual Studio 2015/Projects/Turn Off PC/Turn Off PC/Resources/icon.ico");
+            appIcon.Visible = true;
         }
 
         private void startclock()
@@ -52,7 +54,7 @@ namespace Turn_Off_PC
 
         private void tickevent1(object sender, EventArgs e)
         {
-            OraActula.Text = DateTime.Now.ToString("HH:mm:ss  dd.MM.yyyy"); 
+            Time_Now.Text = DateTime.Now.ToString("HH:mm:ss  dd.MM.yyyy"); 
         }
 
         private string Convert_to_time(int time)
@@ -66,23 +68,42 @@ namespace Turn_Off_PC
             return elapsed;
         }
 
+        private string Convert_to_time2(int time)
+        {
+            TimeSpan t = TimeSpan.FromSeconds(time);
+            string elapsed = string.Format("{0:D1} : {1:D2} : {2:D2} : {3:D2}",
+                t.Days,
+                t.Hours,
+                t.Minutes,
+                t.Seconds);
+            return elapsed;
+        }
+
         private void countdown()
         {
             _time = TimeSpan.FromSeconds(VariableTime);
             timer2 = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                TimpRamas.Text = Convert_to_time(VariableTime);
+                RemaingTime.Text = Convert_to_time(VariableTime);
+
+                if (_time == TimeSpan.FromSeconds(300))
+                {
+                    timer2.Stop();
+                    
+                }
+
                 if (_time == TimeSpan.Zero)
                 {
                     timer2.Stop();
-                    MessageBox.Show("Shutdown");
-                    //Process.Start("shutdown", "/s /t 0");
+                    //System.Windows.MessageBox.Show("Shutdown.");
+                    System.Diagnostics.Process.Start("shutdown", "/s /f /t 060 /c " + (char)34 + "YOUR COMPUTER WILL BE TURNED OFF IN 1 MINUTE" + (char)34);
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
                 VariableTime--;
                 temptime = (int)_time.Seconds;
-            }, Application.Current.Dispatcher);
-
+            },
+            System.Windows.Application.Current.Dispatcher);
+            
         }
 
         private void countup()
@@ -98,60 +119,59 @@ namespace Turn_Off_PC
             if (Vt < VariableTime)
             {
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 Vt++;
-                TimpRamas.Text = Convert_to_time(Vt);
+                RemaingTime.Text = Convert_to_time(Vt);
                 
                
             }
             if (Vt == VariableTime)
                 timer3.Stop();
         }
-
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
@@ -188,6 +208,7 @@ namespace Turn_Off_PC
 
                 default:
                     countdown();
+                    appIcon.ShowBalloonTip(500, "The countdown has started"," ", ToolTipIcon.Info);
                     break;
 
             }
@@ -211,7 +232,7 @@ namespace Turn_Off_PC
             temptime = 0;
             Vt = 0;
             timer2.Stop();
-            TimpRamas.Text = Convert_to_time(Vt);
+            RemaingTime.Text = Convert_to_time(Vt);
             Start.IsEnabled = true;
             Stop.IsEnabled = false;
             Continue.IsEnabled = false;
@@ -224,6 +245,7 @@ namespace Turn_Off_PC
             ThirtyMin.IsEnabled = true;
             Reset.IsEnabled = false;
             ResetTime.IsEnabled = true;
+
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -232,6 +254,7 @@ namespace Turn_Off_PC
             Continue.Visibility = System.Windows.Visibility.Visible;
             timer2.Stop();
             temptime = VariableTime;
+            appIcon.ShowBalloonTip(500, "The countdown has stoped", " ", ToolTipIcon.Info);
         }
 
         private void Continue_Click(object sender, RoutedEventArgs e)
@@ -239,6 +262,7 @@ namespace Turn_Off_PC
             Continue.Visibility = System.Windows.Visibility.Hidden;
             Stop.Visibility = System.Windows.Visibility.Visible;
             timer2.Start();
+            appIcon.ShowBalloonTip(500, "The countdown has started", " ", ToolTipIcon.Info);
         }
 
         private void ThreeHours_Click(object sender, RoutedEventArgs e)
@@ -276,7 +300,7 @@ namespace Turn_Off_PC
             VariableTime = 0;
             temptime = 0;
             Vt = 0;
-            TimpRamas.Text = Convert_to_time(Vt);
+            RemaingTime.Text = Convert_to_time(Vt);
         }
     }
 }
